@@ -13,7 +13,8 @@ export const useFetch = url => {
         setState({ data: y, loading: false })
       });
 
-  }, [url])
+  }, [url, setState])
+  // make sure dependencies are not changing when use effect is called
 
   return state;
 }
