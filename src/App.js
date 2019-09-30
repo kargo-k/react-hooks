@@ -12,11 +12,17 @@ const App = () => {
     firstName: ""
   })
 
-  const [count, setCount] = useState(0);
+  // ! then we can get the current count from localStorage and set it to state
+  const [count, setCount] = useState(() => JSON.parse(localStorage.getItem("count")));
   const url = `http://numbersapi.com/${count}/trivia`;
 
   const { data, loading } = useFetch(url)
   // returns the data and a true/false if the data is loading
+
+  //! saving to localstorage using a hook!
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
 
   return (
     <div>
