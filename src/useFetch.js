@@ -8,6 +8,7 @@ export const useFetch = url => {
     return () => {
       // cleanup function called when cmpt is going to unmount
       isCurrent.current = false;
+      // the ,current gives you access to the ref
       // whenever this value is false, the cmpt is going to unmount
     }
   }, [])

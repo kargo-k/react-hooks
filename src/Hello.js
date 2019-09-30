@@ -13,7 +13,7 @@ export const Hello = () => {
   const { data, loading } = useFetch(url)
 
   console.log('hello renders: ', renders.current++);
-  // allows us to update the value as a reference, which does not cause a re-render
+  // .current allows us to update the value as a reference, which does not cause a re-render
 
   return <div>
     <div>{!data ? 'loading...' : data}</div>
