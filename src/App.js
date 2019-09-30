@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from './useForm';
 import { useFetch } from './useFetch';
 
@@ -12,12 +12,16 @@ const App = () => {
     firstName: ""
   })
 
-  // ! then we can get the current count from localStorage and set it to state
+  // ! then we can get the current count from localStorage and set it to state.  Using the initializer function of use State will prevent getting the count from localStorage every time.  will only call when it is rendered the first time!
   const [count, setCount] = useState(() => JSON.parse(localStorage.getItem("count")));
   const url = `http://numbersapi.com/${count}/trivia`;
 
   const { data, loading } = useFetch(url)
   // returns the data and a true/false if the data is loading
+
+  // ? --------------- useRef
+  const inputRef = useRef()
+
 
   //! saving to localstorage using a hook!
   useEffect(() => {
@@ -32,6 +36,7 @@ const App = () => {
       <button onClick={() => setCount(c => c + 1)}>Increment</button>
 
       <input
+        ref={inputRef} // gives us access to the reference
         name='firstName'
         value={values.firstName}
         onChange={handleChange} />
@@ -47,6 +52,8 @@ const App = () => {
         value={values.password}
         onChange={handleChange} />
 
+      <button onClick={() => inputRef.current.focus()}>Focus</button>
+      {/* this gives us access to the DOM node */}
     </div >
   );
 }
