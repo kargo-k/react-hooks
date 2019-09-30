@@ -4,7 +4,9 @@ export const useFetch = url => {
   const [state, setState] = useState({ data: null, loading: true })
 
   useEffect(() => {
+    // sets the state to the current data for a smoother transition
     setState(state => ({ data: state.data, loading: true }));
+
     fetch(url)
       .then(x => x.text())
       .then(y => {
