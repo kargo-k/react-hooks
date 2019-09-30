@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from './useForm';
 import { useFetch } from './useFetch';
+import { Hello } from './Hello';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
 
   // ? --------------- useRef
   const inputRef = useRef()
+  const [showHello, setShowHello] = useState(true)
 
 
   //! saving to localstorage using a hook!
@@ -34,6 +36,9 @@ const App = () => {
 
       <div>Count: {count}</div>
       <button onClick={() => setCount(c => c + 1)}>Increment</button>
+
+      <button onClick={() => setShowHello(!showHello)}>toggle</button>
+      {showHello && <Hello />}
 
       <input
         ref={inputRef} // gives us access to the reference
@@ -54,6 +59,7 @@ const App = () => {
 
       <button onClick={() => inputRef.current.focus()}>Focus</button>
       {/* this gives us access to the DOM node */}
+
     </div >
   );
 }
