@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export const useFetch = url => {
+  const isCurrent = useRef(true)
   const [state, setState] = useState({ data: null, loading: true })
+
+  useEffect(() => {
+    return () => {
+      // cleanup function called when cmpt is going to unmount
+      isCurrent.current = false;
+      // whenever this value is false, the cmpt is going to unmount
+    }
+  }, [])
+
 
   useEffect(() => {
     // sets the state to the current data for a smoother transition
@@ -10,7 +20,11 @@ export const useFetch = url => {
     fetch(url)
       .then(x => x.text())
       .then(y => {
-        setState({ data: y, loading: false })
+        setTimeout(() => {
+          if (isCurrent.current) {
+            setState({ data: y, loading: false })
+          }
+        }, 2000)
       });
 
   }, [url, setState])
